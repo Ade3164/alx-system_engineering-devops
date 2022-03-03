@@ -1,2 +1,2 @@
 #!/bin/bash
-ln -s /bin/ls/_ls_ link_prog
+ln -s /bin/ls/_ls_
