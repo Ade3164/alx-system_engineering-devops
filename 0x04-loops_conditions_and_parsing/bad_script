@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+var='some text'
+unusede_variable='some unused variable'
+echo $var
