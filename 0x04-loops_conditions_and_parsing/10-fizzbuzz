@@ -16,5 +16,5 @@ do
     else
         echo "$COUNTER"
     fi
-    let COUNTER+=1
+     ((COUNTER+=1)) || true
 done
