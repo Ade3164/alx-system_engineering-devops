@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Engine x
+
+apt-get update
+apt-get -y install nginx
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+echo -e "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+printf %s "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+    error_page 404 /404.html;
+}" > /etc/nginx/sites-enabled/default
+sudo service nginx restart

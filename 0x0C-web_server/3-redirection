@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Install nginx --> engine x
+apt-get update
+apt-get -y install nginx
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+echo -e "Hello World!" > /var/www/html/index.html
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo service nginx restart
