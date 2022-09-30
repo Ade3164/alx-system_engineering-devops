@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# show domain and subdomain informations
+# # shellcheck disable=SC2086
+
+get_line() {
+    echo $(dig "$2"."$1" | grep -A1 "ANSWER SECTION:" | tail -n 1)
+}
+
+show_info(){
+    out=$(get_line "$1" "$2")
+    A_REC=$(echo "$out" | awk -F " " '{print $4}')
+    DEST=$(echo "$out" | awk -F " " '{print $5}')
+    echo "The subdomain $2 is a $A_REC record and points to $DEST"
+}
+
+if [ $# -eq 2 ]; then
+    show_info "$1" "$2"
+else
+    show_info "$1" "www"
+    show_info "$1" "lb-01"
+    show_info "$1" "web-01"
+    show_info "$1" "web-02"
+fi
